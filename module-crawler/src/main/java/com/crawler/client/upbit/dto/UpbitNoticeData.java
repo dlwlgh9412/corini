@@ -22,8 +22,6 @@ public class UpbitNoticeData {
     @JsonProperty("list")
     private List<UpbitNoticeInfo> list;
 
-    /*
     @JsonProperty("fixed_notices")
     private List<UpbitNoticeInfo> fixedNotices;
-     */
 }
