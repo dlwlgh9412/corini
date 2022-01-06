@@ -1,0 +1,53 @@
+buildscript {
+    ext {
+        springBootVersion = '2.6.2'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
+    }
+}
+
+plugins {
+    id('java')
+    id('java-library')
+}
+
+subprojects {
+    group = 'com.jjangchen'
+    version = '0.0.1-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = '11'
+
+    dependencies {
+        implementation "org.projectlombok:lombok"
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+}
+
+project(':module-crawler') {
+    dependencies {
+        api project(':module-common')
+    }
+}
+
+project(':module-api') {
+    dependencies {
+        api project(':module-common')
+    }
+}
