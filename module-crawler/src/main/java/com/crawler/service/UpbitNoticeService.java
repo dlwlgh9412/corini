@@ -36,12 +36,12 @@ public class UpbitNoticeService {
     @Transactional
     public void searchNotice(int per_page) {
         UpbitNoticeResponse response = upbitNoticeRestClient.getNotices(per_page);
-        BigDecimal lastNoticeId = noticeRepository.getLastNoticeIdByExchange(Exchange.ExchangeType.UPBIT.getKey()).orElse(BigDecimal.ZERO);
+        BigDecimal lastNoticeId = noticeRepository.getLastNoticeIdByExchange(Exchange.ExchangeEntity.UPBIT.getKey()).orElse(BigDecimal.ZERO);
 
         if (response.getSuccess()) {
             for (int page = 1; page <= response.getData().getTotalPages(); page++) {
                 response = upbitNoticeRestClient.getNotices(page, per_page);
-                if (insertNotices(response.getData().getList(), lastNoticeId) < per_page)
+                if (response.getSuccess() && insertNotices(response.getData().getList(), lastNoticeId) < per_page)
                     break;
             }
         } else {
@@ -67,8 +67,8 @@ public class UpbitNoticeService {
     }
 
     private Exchange selectExchange() {
-        Exchange exchange = exchangeRepository.findById(Exchange.ExchangeType.UPBIT).orElse(Exchange.builder()
-                .name(Exchange.ExchangeType.UPBIT)
+        Exchange exchange = exchangeRepository.findById(Exchange.ExchangeEntity.UPBIT).orElse(Exchange.builder()
+                .name(Exchange.ExchangeEntity.UPBIT)
                 .overSea(false)
                 .url(urlProperties.getUpbitUrl())
                 .build());
