@@ -1,9 +1,10 @@
 package com.common.entity;
 
-import com.common.enums.EnumModel;
+import com.common.enums.EntityEnumModel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ import java.time.ZonedDateTime;
 @Getter
 @Entity
 @Table(name = "TBL_NOTICE")
+@DynamicUpdate
 public class Notice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +28,7 @@ public class Notice {
 
     private String title;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "EXCHANGE")
     private Exchange exchange;
 
@@ -50,7 +52,7 @@ public class Notice {
         this.updatedDate = updatedDate;
     }
 
-    public enum NoticeKind implements EnumModel {
+    public enum NoticeKind implements EntityEnumModel {
         ALL("전체"),
         NOTICE("공지사항"),
         EVENT("이벤트");
