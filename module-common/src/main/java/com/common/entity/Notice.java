@@ -1,5 +1,6 @@
 package com.common.entity;
 
+import com.common.enums.EnumModel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,8 +50,8 @@ public class Notice {
         this.updatedDate = updatedDate;
     }
 
-    public enum NoticeKind {
-        //ALL("전체"),
+    public enum NoticeKind implements EnumModel {
+        ALL("전체"),
         NOTICE("공지사항"),
         EVENT("이벤트");
 

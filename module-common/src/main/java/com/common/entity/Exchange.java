@@ -1,5 +1,6 @@
 package com.common.entity;
 
+import com.common.enums.EnumModel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +33,7 @@ public class Exchange {
         this.url = url;
     }
 
-    public enum ExchangeType {
+    public enum ExchangeType implements EnumModel {
         UPBIT("업비트"),
         COINONE("코인원");
 

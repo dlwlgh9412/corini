@@ -34,7 +34,7 @@ public class UpbitNoticeService {
     }
 
     public void checkLastNoticeId() {
-        BigDecimal lastNoticeId = noticeRepository.getLastNoticeIdByExchange("UPBIT").orElse(BigDecimal.ZERO);
+        BigDecimal lastNoticeId = noticeRepository.getLastNoticeIdByExchange(Exchange.ExchangeType.UPBIT.getKey()).orElse(BigDecimal.ZERO);
     }
 
     @Transactional
@@ -56,15 +56,15 @@ public class UpbitNoticeService {
 
     private void insertNotices(List<UpbitNoticeInfo> noticeInfoList, BigDecimal lastNoticeId) {
         noticeInfoList = noticeInfoList.stream().filter(noticeInfo -> BigDecimal.valueOf(noticeInfo.getId()).compareTo(lastNoticeId) > 0).collect(Collectors.toList());
-        convertToSave(noticeInfoList);
+        mapAndSave(noticeInfoList);
     }
 
     private void updateFixedNotices(List<UpbitNoticeInfo> noticeInfoList) {
-        noticeInfoList = noticeInfoList.stream().filter(noticeInfo -> BigDecimal.valueOf(noticeInfo.getId()).compareTo(BigDecimal.valueOf(noticeInfo.getId())) == 0).collect(Collectors.toList());
-        convertToSave(noticeInfoList);
+        noticeInfoList = noticeInfoList.stream().filter(noticeInfo -> BigDecimal.valueOf(noticeInfo.getId()).compareTo(BigDecimal.valueOf(noticeInfo.getId())) <= 0).collect(Collectors.toList());
+        mapAndSave(noticeInfoList);
     }
 
-    private void convertToSave(List<UpbitNoticeInfo> noticeInfoList) {
+    private void mapAndSave(List<UpbitNoticeInfo> noticeInfoList) {
         List<Notice> noticeList = noticeInfoList.stream().map(noticeInfo -> Notice.builder()
                 .noticeId(BigDecimal.valueOf(noticeInfo.getId()))
                 .exchange(exchange)
@@ -77,14 +77,14 @@ public class UpbitNoticeService {
         noticeRepository.saveAll(noticeList);
     }
 
-    public Notice.NoticeKind discriminateNoticeKind(String title) {
+    private Notice.NoticeKind discriminateNoticeKind(String title) {
         if (title.contains(Notice.NoticeKind.EVENT.getValue()))
             return Notice.NoticeKind.EVENT;
         else
             return Notice.NoticeKind.NOTICE;
     }
 
-    public String buildNoticeUrl(Integer noticeId) {
+    private String buildNoticeUrl(Integer noticeId) {
         return urlProperties.getUpbitNoticeUrl() + noticeId;
     }
 }
