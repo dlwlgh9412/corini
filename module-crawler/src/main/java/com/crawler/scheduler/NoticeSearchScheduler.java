@@ -21,6 +21,6 @@ public class NoticeSearchScheduler {
     @Scheduled(cron = "0 0/1 * * * ?", zone = "Asia/Seoul")
     public void searchNotice() {
         log.info("{} 업비트 공지사항 Searching", ZonedDateTime.now(ZoneId.of("Asia/Seoul")));
-        upbitNoticeService.searchNotice(PerPage.UPBIT_DEFAULT.getValue());
+        upbitNoticeService.searchNotice(PerPage.UPBIT_PER_PAGE_DEFAULT.getValue());
     }
 }
