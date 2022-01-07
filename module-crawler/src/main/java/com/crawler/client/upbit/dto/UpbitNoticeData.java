@@ -16,7 +16,7 @@ public class UpbitNoticeData {
     @JsonProperty("total_count")
     private Long totalCount;
 
-    @JsonProperty("total_page")
+    @JsonProperty("total_pages")
     private Long totalPages;
 
     @JsonProperty("list")
