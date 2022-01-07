@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface NoticeRepository extends JpaRepository<Notice, Long> {
-    @Query(value = "select max(noticeId) from TBL_NOTICE inner join TBL_EXCHANGE TE on TBL_NOTICE.EXCHANGE = TE.NAME where TE.NAME = ?1", nativeQuery = true)
+    @Query(value = "select MAX(NOTICE_ID) from TBL_NOTICE inner join TBL_EXCHANGE TE on TBL_NOTICE.EXCHANGE = TE.NAME where TE.NAME = ?1", nativeQuery = true)
     Optional<BigDecimal> getLastNoticeIdByExchange(String exchange);
 }
