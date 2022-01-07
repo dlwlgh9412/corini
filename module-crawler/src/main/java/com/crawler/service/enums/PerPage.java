@@ -1,8 +1,8 @@
 package com.crawler.service.enums;
 
-public enum PerPage implements ParamEnumModel {
-    UPBIT_DEFAULT(20),
-    UPBIT_MAX(30);
+public enum PerPage {
+    UPBIT_PER_PAGE_DEFAULT(20),
+    UPBIT_PER_PAGE_MAX(30);
 
     private Integer perPage;
 
@@ -10,7 +10,6 @@ public enum PerPage implements ParamEnumModel {
         this.perPage = perPage;
     }
 
-    @Override
     public Integer getValue() {
         return perPage;
     }
