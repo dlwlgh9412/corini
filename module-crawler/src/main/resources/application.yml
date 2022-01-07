@@ -11,3 +11,16 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: create-drop
+
+  redis:
+    database: 0
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: 1ms
+        min-idle: 0
+      shutdown-timeout: 100ms
+    ssl: false
+    timeout: 3s
