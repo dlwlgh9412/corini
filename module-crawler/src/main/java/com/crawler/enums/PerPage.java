@@ -1,4 +1,4 @@
-package com.crawler.service.enums;
+package com.crawler.enums;
 
 public enum PerPage {
     UPBIT_PER_PAGE_DEFAULT(20),

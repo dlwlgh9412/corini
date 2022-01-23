@@ -10,4 +10,20 @@ spring:
     database: mysql
     generate-ddl: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
+
+  redis:
+    database: 0
+    port: 8379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: 1ms
+        min-idle: 0
+      shutdown-timeout: 100ms
+    ssl: false
+    timeout: 3s
+    host: localhost
+server:
+  port: 8081

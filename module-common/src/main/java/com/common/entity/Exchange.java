@@ -16,7 +16,7 @@ import java.util.List;
 public class Exchange {
     @Id
     @Enumerated(EnumType.STRING)
-    private ExchangeEntity name;
+    private ExchangeType type;
 
     private Boolean overSea;
 
@@ -26,19 +26,19 @@ public class Exchange {
     private List<Notice> noticeEntities = new ArrayList<>();
 
     @Builder
-    public Exchange(ExchangeEntity name, Boolean overSea, String url) {
-        this.name = name;
+    public Exchange(ExchangeType type, Boolean overSea, String url) {
+        this.type = type;
         this.overSea = overSea;
         this.url = url;
     }
 
-    public enum ExchangeEntity implements EntityEnumModel {
+    public enum ExchangeType implements EntityEnumModel {
         UPBIT("업비트"),
         COINONE("코인원");
 
         private String type;
 
-        ExchangeEntity(String type) {
+        ExchangeType(String type) {
             this.type = type;
         }
 

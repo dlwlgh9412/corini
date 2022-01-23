@@ -1,4 +1,4 @@
-package com.crawler.config;
+package com.crawler.properties;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
